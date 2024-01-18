@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema online</title>
+</head>
+<body>
+    <a href="{% url 'listar_aluno' %}">Alunos</a>
+    <a href="{% url 'listar_curso' %}">Cursos</a>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

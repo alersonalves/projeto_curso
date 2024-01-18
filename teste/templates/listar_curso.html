@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>Listar Curso</h2>
+    <a href="{% url 'incluir_curso' %}">Cadastrar novo curso</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Carga_horaria</th>
+                <th>Investimento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in cursos %}
+                <tr>
+                    <td>{{a.id}}</td>
+                    <td>{{a.nome}}</td>
+                    <td>{{a.carga_horaria}}</td>
+                    <td>{{a.investimento}}</td>
+                    <td>
+                        <a href="{% url 'editar_curso' a.id %}">Editar</a>
+                        <a href="#">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock %}
