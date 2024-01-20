@@ -39,6 +39,11 @@ def editarAluno(request, id):
     return render(request, 'incluir_aluno.html',
                   {'form':form})
 
+def excluirAluno(request, id):
+    aluno= Aluno.objects.get(id=id)
+    aluno.delete()
+    return redirect('listar_aluno')
+
 def listarCurso(request):
     cursos = Curso.objects.all()
     return render(request, 'listar_curso.html',
@@ -66,3 +71,8 @@ def editarCurso(request, id):
             return redirect('listar_curso')
     return render(request, 'incluir_curso.html',
                   {'form':form})
+
+def excluirCurso(request, id):
+    curso = Curso.objects.get(id=id)
+    curso.delete()
+    return redirect('listar_curso')
