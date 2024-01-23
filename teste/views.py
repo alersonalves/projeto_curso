@@ -6,13 +6,13 @@ from teste.models import Aluno, Curso
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Olá, Mundo! Agora é na Web.")
+    return render(request, 'inicio.html')
 
 def novo(request):
     return HttpResponse("Esta é uma página de teste")
 
 def listarAluno(request):
-    alunos = Aluno.objects.all()
+    alunos = Aluno.objects.all().order_by('nome')
     return render(request, 'listar_aluno.html',
                   {'alunos':alunos})
 
@@ -45,7 +45,7 @@ def excluirAluno(request, id):
     return redirect('listar_aluno')
 
 def listarCurso(request):
-    cursos = Curso.objects.all()
+    cursos = Curso.objects.all().order_by('nome')
     return render(request, 'listar_curso.html',
                   {'cursos':cursos})
 

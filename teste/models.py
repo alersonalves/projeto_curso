@@ -18,3 +18,6 @@ class Curso(models.Model):
 
     def __str__(self):
         return self.nome
+    
+class Turma(models.Model):
+    pass
