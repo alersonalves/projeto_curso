@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap_icons %}
 {% block content %}
 
     <h2>Listar Curso</h2>
@@ -20,8 +21,8 @@
                     <td>{{a.carga_horaria}}</td>
                     <td>{{a.investimento}}</td>
                     <td>
-                        <a href="{% url 'editar_curso' a.id %}" class="btn btn-secondary">Editar</a>
-                        <a href="{% url 'excluir_curso' a.id %}" class="btn btn-danger">Excluir</a>
+                        <a href="{% url 'editar_curso' a.id %}" class="btn btn-secondary">Editar {% bs_icon 'pen' %}</a>
+                        <a href="{% url 'excluir_curso' a.id %}" class="btn btn-danger">Excluir {% bs_icon 'x-lg' %}</a>
                     </td>
                 </tr>
             {% endfor %}

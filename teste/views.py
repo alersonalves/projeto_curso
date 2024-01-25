@@ -11,8 +11,14 @@ def index(request):
 def novo(request):
     return HttpResponse("Esta é uma página de teste")
 
+# Alunos
+
 def listarAluno(request):
-    alunos = Aluno.objects.all().order_by('nome')
+    busca = request.GET.get('busca')
+    if busca:
+        alunos = Aluno.objects.filter(nome__icontains=busca).extra(select={'novo': 'lower(nome)'}).order_by('novo')
+    else:
+        alunos = Aluno.objects.all().extra(select={'novo': 'lower(nome)'}).order_by('novo')
     return render(request, 'listar_aluno.html',
                   {'alunos':alunos})
 
@@ -43,6 +49,8 @@ def excluirAluno(request, id):
     aluno= Aluno.objects.get(id=id)
     aluno.delete()
     return redirect('listar_aluno')
+
+# Cursos
 
 def listarCurso(request):
     cursos = Curso.objects.all().order_by('nome')
