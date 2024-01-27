@@ -15,12 +15,23 @@ def novo(request):
 
 def listarAluno(request):
     busca = request.GET.get('busca')
+    ordem = request.GET.get('ordem')
     if busca:
-        alunos = Aluno.objects.filter(nome__icontains=busca).extra(select={'novo': 'lower(nome)'}).order_by('novo')
+        if not ordem or ordem == 'nome':
+            alunos = Aluno.objects.filter(nome__icontains=busca).extra(select={'novo': 'lower(nome)'}).order_by('novo')
+
+        elif ordem == '-nome':
+            alunos = Aluno.objects.filter(nome__icontains=busca).extra(select={'novo': 'lower(nome)'}).order_by('-novo')
     else:
-        alunos = Aluno.objects.all().extra(select={'novo': 'lower(nome)'}).order_by('novo')
+        busca = ''
+        if not ordem or ordem == 'nome':
+            alunos = Aluno.objects.all().extra(select={'novo': 'lower(nome)'}).order_by('novo')
+
+        elif ordem == '-nome':
+            alunos = Aluno.objects.all().extra(select={'novo': 'lower(nome)'}).order_by('-novo')
+
     return render(request, 'listar_aluno.html',
-                  {'alunos':alunos})
+                  {'alunos':alunos, 'busca':busca})
 
 def incluirAluno(request):
     if request.method == 'POST':
@@ -84,3 +95,4 @@ def excluirCurso(request, id):
     curso = Curso.objects.get(id=id)
     curso.delete()
     return redirect('listar_curso')
+

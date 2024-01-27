@@ -2,16 +2,18 @@
 {% load bootstrap_icons %}
 {% block content %}
 
+
     <h2>Listar Aluno</h2>
     <a href="{% url 'incluir_aluno' %}" class="btn btn-primary">
         Cadastrar novo aluno</a>
 
-    <form method="get">
+    <form method="get" id="formulario">
         <div class="input-group mb-3">
+            <input type="hidden" name="ordem" id="ordem" />
             <input type="text" class="form-control"
                 placeholder="Digite parte do nome para busca"
                 aria-label="Digite parte do nome para busca"
-                name="busca"
+                name="busca" value="{{busca}}"
                 aria-describedby="botao-busca">
             <button class="btn btn-outline-secondary" type="submit"
                 id="botao-busca">{% bs_icon 'search' %}</button>
@@ -22,10 +24,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>cpf</th>
+                <th>Id<a href="" class="ordem" >{% bs_icon 'arrow-up-short' %}</a></th>
+                <th>Nome
+                    <a href="javascript:void(0)" class="ordem" onclick="ordenar('nome')">{% bs_icon 'arrow-up-short' %}</a>
+                    <a href="javascript:void(0)" class="ordem" onclick="ordenar('-nome')">{% bs_icon 'arrow-down-short' %}</a>
+                </th>
+                <th>E-mail<a href="" class="ordem">{% bs_icon 'arrow-up-short' %}</a></th>
+                <th>cpf<a href="" class="ordem">{% bs_icon 'arrow-up-short' %}</a></th>
             </tr>
         </thead>
         <tbody>
@@ -44,5 +49,13 @@
             {% endfor %}
         </tbody>
     </table>
-
+    <script>
+        function ordenar(criterio){
+            alert(criterio);
+            formulario = document.getElementById("formulario");
+            ordem = document.getElementById("ordem");
+            ordem.value = criterio;
+            formulario.submit();
+        }
+    </script>
     {% endblock %}
